@@ -28,5 +28,7 @@ When making changes, use these Claude Code skills:
 - `/web-design-guidelines` - Accessibility and UI best practices
 
 ## Deployment
+- **Live:** https://glocal-instapago.vercel.app
+- **GitHub:** https://github.com/dvainrub/glocal-instapago
 - Auto-deploys from `main` branch to Vercel
 - **Always commit and push changes to trigger deployment**
