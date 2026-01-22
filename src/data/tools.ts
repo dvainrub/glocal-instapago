@@ -21,7 +21,7 @@ export type Category =
   | "nocode"
   | "desarrollo";
 
-// Recommendation tiers: tier1=⭐⭐⭐⭐⭐, tier2=⭐⭐⭐⭐, tier3=⭐⭐⭐
+// Recommendation tiers: tier1=Top Pick, tier2=Great, tier3=Good
 export type RecommendationTier = "tier1" | "tier2" | "tier3" | null;
 
 export interface PricingTier {
@@ -78,9 +78,9 @@ export const levelColors: Record<SkillLevel, string> = {
 };
 
 export const tierLabels: Record<NonNullable<RecommendationTier>, string> = {
-  tier1: "⭐⭐⭐⭐⭐",
-  tier2: "⭐⭐⭐⭐",
-  tier3: "⭐⭐⭐",
+  tier1: "Top Pick",
+  tier2: "Great",
+  tier3: "Good",
 };
 
 export const tierDescriptions: Record<NonNullable<RecommendationTier>, string> = {
