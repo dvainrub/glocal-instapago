@@ -149,4 +149,20 @@ export const ui = {
       es: "Avanzado",
     } as Localized<string>,
   },
+
+  // Footer / Resources toggle
+  footer: {
+    resources: {
+      en: "Resources",
+      es: "Recursos",
+    } as Localized<string>,
+    newBadge: {
+      en: "NEW",
+      es: "NUEVO",
+    } as Localized<string>,
+    noResource: {
+      en: "No resource linked",
+      es: "Sin recurso vinculado",
+    } as Localized<string>,
+  },
 } as const;

@@ -15,6 +15,8 @@ import {
   Check,
   ArrowUpRight,
   Bot,
+  X,
+  BookOpen,
 } from "lucide-react";
 import {
   tools,
@@ -24,6 +26,7 @@ import {
   type SkillLevel,
 } from "@/data/tools";
 import { ui } from "@/data/translations";
+import { resourceMapping, type ResourceLink, type NewUseCase } from "@/data/resourceMapping";
 import { useLang } from "@/lib/useLang";
 import { type Lang } from "@/lib/i18n";
 
@@ -86,9 +89,14 @@ function LanguageToggle({ lang, toggleLang }: { lang: Lang; toggleLang: () => vo
   );
 }
 
-function ToolCard({ tool, lang }: { tool: Tool; lang: Lang }) {
+function ToolCard({ tool, lang, showResources }: { tool: Tool; lang: Lang; showResources: boolean }) {
   const [isExpanded, setIsExpanded] = useState(false);
   const tierStyle = tool.tier ? tierStyles[tool.tier] : null;
+
+  // Get resource mapping for this tool
+  const toolResources = resourceMapping[tool.id];
+  const existingResources = toolResources?.existingUseCases || [];
+  const newUseCases = toolResources?.newUseCases || [];
 
   return (
     <motion.div
@@ -209,10 +217,62 @@ function ToolCard({ tool, lang }: { tool: Tool; lang: Lang }) {
                   <span className="h-px flex-1 bg-gradient-to-l from-gray-200 to-transparent" />
                 </h4>
                 <ul className="space-y-1.5">
-                  {tool.casosDeUso[lang].map((caso, idx) => (
-                    <li key={idx} className="flex items-start gap-2.5 text-sm text-gray-600">
-                      <span className="mt-2 h-1 w-1 flex-shrink-0 rounded-full bg-violet-500" />
-                      {caso}
+                  {tool.casosDeUso[lang].map((caso, idx) => {
+                    const resources = existingResources[idx];
+                    return (
+                      <li key={idx} className="flex items-start justify-between gap-2 text-sm text-gray-600">
+                        <div className="flex items-start gap-2.5">
+                          <span className="mt-2 h-1 w-1 flex-shrink-0 rounded-full bg-violet-500" />
+                          <span>{caso}</span>
+                        </div>
+                        {showResources && (
+                          <div className="flex flex-shrink-0 gap-1">
+                            {resources && resources.length > 0 ? (
+                              resources.map((r, i) => (
+                                <a
+                                  key={i}
+                                  href={r.url}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  title={r.title}
+                                  className="text-violet-500 hover:text-violet-700 transition-colors"
+                                >
+                                  <ExternalLink className="h-4 w-4" />
+                                </a>
+                              ))
+                            ) : (
+                              <span title={ui.footer.noResource[lang]}>
+                                <X className="h-4 w-4 text-gray-300" />
+                              </span>
+                            )}
+                          </div>
+                        )}
+                      </li>
+                    );
+                  })}
+                  {/* New use cases from research - only show when resources toggle is ON */}
+                  {showResources && newUseCases.map((newCase, idx) => (
+                    <li key={`new-${idx}`} className="flex items-start justify-between gap-2 text-sm text-gray-600">
+                      <div className="flex items-start gap-2.5">
+                        <span className="inline-flex items-center rounded bg-violet-100 px-1.5 py-0.5 text-[10px] font-semibold text-violet-700">
+                          {ui.footer.newBadge[lang]}
+                        </span>
+                        <span>{newCase.useCase[lang]}</span>
+                      </div>
+                      <div className="flex flex-shrink-0 gap-1">
+                        {newCase.resources.map((r, i) => (
+                          <a
+                            key={i}
+                            href={r.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            title={r.title}
+                            className="text-violet-500 hover:text-violet-700 transition-colors"
+                          >
+                            <ExternalLink className="h-4 w-4" />
+                          </a>
+                        ))}
+                      </div>
                     </li>
                   ))}
                 </ul>
@@ -296,6 +356,7 @@ function CatalogContent() {
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
   const [selectedTier, setSelectedTier] = useState<RecommendationTier | "all">("all");
   const [selectedLevel, setSelectedLevel] = useState<SkillLevel | "all">("all");
+  const [showResources, setShowResources] = useState(false);
 
   const categories = Object.keys(ui.categories) as Category[];
   const tiers: NonNullable<RecommendationTier>[] = ["tier1", "tier2", "tier3"];
@@ -455,7 +516,7 @@ function CatalogContent() {
                 exit={{ opacity: 0, scale: 0.95, y: -10 }}
                 transition={{ duration: 0.2, ease: [0.4, 0, 0.2, 1] }}
               >
-                <ToolCard tool={tool} lang={lang} />
+                <ToolCard tool={tool} lang={lang} showResources={showResources} />
               </motion.div>
             ))}
           </AnimatePresence>
@@ -470,6 +531,32 @@ function CatalogContent() {
           </div>
         )}
       </main>
+
+      {/* Footer with Resources Toggle */}
+      <footer className="relative z-10 border-t border-gray-200 bg-white/80 backdrop-blur-sm">
+        <div className="mx-auto max-w-6xl px-4 py-4">
+          <div className="flex items-center justify-center gap-3">
+            <BookOpen className="h-4 w-4 text-gray-400" />
+            <span className="text-sm font-medium text-gray-600">
+              {ui.footer.resources[lang]}
+            </span>
+            <button
+              onClick={() => setShowResources(!showResources)}
+              className={`relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2 ${
+                showResources ? "bg-violet-600" : "bg-gray-200"
+              }`}
+              role="switch"
+              aria-checked={showResources}
+            >
+              <span
+                className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out ${
+                  showResources ? "translate-x-5" : "translate-x-0"
+                }`}
+              />
+            </button>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
