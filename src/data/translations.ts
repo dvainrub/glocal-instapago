@@ -24,6 +24,10 @@ export const ui = {
       en: "Category:",
       es: "Categoría:",
     } as Localized<string>,
+    level: {
+      en: "Level:",
+      es: "Nivel:",
+    } as Localized<string>,
     all: {
       en: "All",
       es: "Todas",

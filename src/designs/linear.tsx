@@ -12,15 +12,16 @@ import {
   Code2,
   Layers,
   Globe,
-  Command,
   Check,
   ArrowUpRight,
+  Bot,
 } from "lucide-react";
 import {
   tools,
   type Category,
   type Tool,
   type RecommendationTier,
+  type SkillLevel,
 } from "@/data/tools";
 import { ui } from "@/data/translations";
 import { useLang } from "@/lib/useLang";
@@ -29,7 +30,7 @@ import { type Lang } from "@/lib/i18n";
 // Linear-inspired category icons
 const categoryIcons: Record<Category, React.ReactNode> = {
   automatizacion: <Zap className="h-3.5 w-3.5" />,
-  agentes: <Command className="h-3.5 w-3.5" />,
+  agentes: <Bot className="h-3.5 w-3.5" />,
   conocimiento: <Search className="h-3.5 w-3.5" />,
   creatividad: <Presentation className="h-3.5 w-3.5" />,
   nocode: <Layers className="h-3.5 w-3.5" />,
@@ -294,9 +295,11 @@ function CatalogContent() {
   const { lang, toggleLang } = useLang();
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
   const [selectedTier, setSelectedTier] = useState<RecommendationTier | "all">("all");
+  const [selectedLevel, setSelectedLevel] = useState<SkillLevel | "all">("all");
 
   const categories = Object.keys(ui.categories) as Category[];
   const tiers: NonNullable<RecommendationTier>[] = ["tier1", "tier2", "tier3"];
+  const levels: SkillLevel[] = ["principiante", "intermedio", "avanzado"];
 
   const filteredTools = tools.filter((t) => {
     if (selectedCategory && t.categoria !== selectedCategory) return false;
@@ -304,6 +307,7 @@ function CatalogContent() {
       if (selectedTier === null && t.tier !== null) return false;
       if (selectedTier !== null && t.tier !== selectedTier) return false;
     }
+    if (selectedLevel !== "all" && t.nivel !== selectedLevel) return false;
     return true;
   });
 
@@ -329,14 +333,6 @@ function CatalogContent() {
         <div className="mx-auto max-w-6xl px-4 py-8">
           <div className="flex items-start justify-between">
             <div>
-              <div className="mb-2 flex items-center gap-2">
-                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-violet-500 to-purple-600 shadow-lg shadow-violet-200">
-                  <Command className="h-4 w-4 text-white" />
-                </div>
-                <span className="font-mono text-xs font-medium uppercase tracking-widest text-gray-400">
-                  Rebundle
-                </span>
-              </div>
               <h1 className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-600 bg-clip-text text-3xl font-bold tracking-tight text-transparent">
                 {ui.header.title[lang]}
               </h1>
@@ -381,7 +377,7 @@ function CatalogContent() {
           </div>
 
           {/* Category Filters */}
-          <div className="flex flex-wrap items-center gap-2">
+          <div className="mb-3 flex flex-wrap items-center gap-2">
             <span className="font-mono text-[10px] font-medium uppercase tracking-widest text-gray-400">
               {ui.filters.category[lang]}
             </span>
@@ -403,6 +399,32 @@ function CatalogContent() {
                   icon={categoryIcons[cat]}
                 >
                   {ui.categories[cat][lang]}
+                </FilterPill>
+              );
+            })}
+          </div>
+
+          {/* Level Filters */}
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="font-mono text-[10px] font-medium uppercase tracking-widest text-gray-400">
+              {ui.filters.level[lang]}
+            </span>
+            <FilterPill
+              active={selectedLevel === "all"}
+              onClick={() => setSelectedLevel("all")}
+            >
+              {ui.filters.all[lang]}
+            </FilterPill>
+            {levels.map((level) => {
+              const count = tools.filter((t) => t.nivel === level).length;
+              return (
+                <FilterPill
+                  key={level}
+                  active={selectedLevel === level}
+                  onClick={() => setSelectedLevel(level)}
+                  count={count}
+                >
+                  {ui.levels[level][lang]}
                 </FilterPill>
               );
             })}
