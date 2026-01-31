@@ -96,24 +96,35 @@ function LanguageToggle({ lang, toggleLang }: { lang: Lang; toggleLang: () => vo
 function CompareToggle({
   lang,
   compareMode,
+  selectedCount,
   onToggle,
+  onCompare,
 }: {
   lang: Lang;
   compareMode: boolean;
+  selectedCount: number;
   onToggle: () => void;
+  onCompare: () => void;
 }) {
+  const canCompare = compareMode && selectedCount >= 2;
+
   return (
     <button
-      onClick={onToggle}
+      onClick={canCompare ? onCompare : onToggle}
       className={`group flex items-center gap-2 rounded-lg border px-3 py-1.5 text-sm font-medium transition-all ${
-        compareMode
+        canCompare
+          ? "border-violet-500 bg-violet-600 text-white hover:bg-violet-700"
+          : compareMode
           ? "border-violet-300 bg-violet-100 text-violet-700"
           : "border-gray-200 bg-white text-gray-600 hover:border-violet-300 hover:bg-violet-50 hover:text-violet-700"
       }`}
       title={ui.compare.toggle[lang]}
     >
       <GitCompare className="h-4 w-4" />
-      <span className="hidden sm:inline">{ui.compare.toggle[lang]}</span>
+      <span>{ui.compare.toggle[lang]}</span>
+      {compareMode && selectedCount > 0 && (
+        <span className="font-mono">({selectedCount})</span>
+      )}
     </button>
   );
 }
@@ -489,23 +500,15 @@ function CatalogContent() {
               <CompareToggle
                 lang={lang}
                 compareMode={compareMode}
+                selectedCount={selectedTools.length}
                 onToggle={() => {
                   setCompareMode(!compareMode);
                   if (compareMode) {
                     setSelectedTools([]);
                   }
                 }}
+                onCompare={goToCompare}
               />
-              {compareMode && selectedTools.length >= 2 && (
-                <button
-                  onClick={goToCompare}
-                  className="flex items-center gap-2 rounded-lg bg-violet-600 px-3 py-1.5 text-sm font-medium text-white transition-all hover:bg-violet-700"
-                >
-                  <GitCompare className="h-4 w-4" />
-                  <span className="hidden sm:inline">{ui.compare.compareButton[lang]}</span>
-                  <span className="font-mono">({selectedTools.length})</span>
-                </button>
-              )}
               <LanguageToggle lang={lang} toggleLang={toggleLang} />
             </div>
           </div>
