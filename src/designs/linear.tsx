@@ -54,9 +54,9 @@ const tierStyles: Record<NonNullable<RecommendationTier>, { bg: string; text: st
     border: "border-amber-200",
   },
   tier2: {
-    bg: "bg-gradient-to-r from-slate-50 to-gray-50",
-    text: "text-gray-600",
-    border: "border-gray-200",
+    bg: "bg-gradient-to-r from-emerald-50 to-green-50",
+    text: "text-emerald-700",
+    border: "border-emerald-200",
   },
   tier3: {
     bg: "bg-gradient-to-r from-orange-50 to-amber-50",
