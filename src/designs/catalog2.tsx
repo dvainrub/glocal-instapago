@@ -29,6 +29,7 @@ import {
 
 const categoryIcons: Record<Category, React.ReactNode> = {
   automatizacion: <Zap className="h-4 w-4" />,
+  agentes: <Code2 className="h-4 w-4" />,
   investigacion: <Search className="h-4 w-4" />,
   creatividad: <Presentation className="h-4 w-4" />,
   nocode: <Layers className="h-4 w-4" />,
@@ -37,6 +38,7 @@ const categoryIcons: Record<Category, React.ReactNode> = {
 
 const categoryColors: Record<Category, string> = {
   automatizacion: "bg-amber-100 text-amber-800",
+  agentes: "bg-teal-100 text-teal-800",
   investigacion: "bg-blue-100 text-blue-800",
   creatividad: "bg-purple-100 text-purple-800",
   nocode: "bg-pink-100 text-pink-800",

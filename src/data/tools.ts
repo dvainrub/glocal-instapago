@@ -13,9 +13,10 @@ export type Department =
   | "operaciones"
   | "todos";
 
-// Merged categories: presentaciones+diseño+video→creatividad, investigacion+datos→investigacion
+// Categories: automatizacion, agentes, investigacion, creatividad, nocode, desarrollo
 export type Category =
   | "automatizacion"
+  | "agentes"
   | "investigacion"
   | "creatividad"
   | "nocode"
@@ -47,6 +48,7 @@ export interface Tool {
 
 export const categoryLabels: Record<Category, string> = {
   automatizacion: "Automatizacion",
+  agentes: "Agentes",
   investigacion: "Investigacion",
   creatividad: "Creatividad",
   nocode: "No-Code",
@@ -160,6 +162,37 @@ export const tools: Tool[] = [
       "Marca establecida, ideal para empresas que priorizan estabilidad",
     ],
   },
+  {
+    id: "n8n",
+    nombre: "n8n",
+    url: "https://n8n.io",
+    descripcion:
+      "Plataforma de automatizacion open-source con opcion self-hosted para control total de datos. Soporta JavaScript/Python nativo y tiene 70+ nodos dedicados a IA via LangChain. Modelo de precios por workflow que resulta mas economico en alto volumen.",
+    descripcionCorta: "Automatizacion open-source con self-hosting",
+    categoria: "automatizacion",
+    nivel: "avanzado",
+    tier: "tier3",
+    departamentos: ["tech", "operaciones", "finanzas"],
+    precios: [
+      { plan: "Self-hosted", precio: "$0", caracteristicas: "Gratis, ilimitado, tu infra" },
+      { plan: "Starter Cloud", precio: "$22/mes", caracteristicas: "2,500 ejecuciones" },
+      { plan: "Pro Cloud", precio: "$57/mes", caracteristicas: "10,000 ejecuciones, colaboracion" },
+      { plan: "Enterprise", precio: "Personalizado", caracteristicas: "SSO, SLA, soporte" },
+    ],
+    casosDeUso: [
+      "Tech: Pipelines de datos con transformaciones complejas en JavaScript",
+      "Operaciones: Automatizaciones con requisitos estrictos de privacidad/compliance",
+      "Finanzas: Procesos internos que no pueden salir de la infraestructura propia",
+      "Marketing: Integraciones de IA con LangChain para contenido personalizado",
+      "Admin: Workflows de alto volumen donde el costo por ejecucion importa",
+    ],
+    porQueEsBueno: [
+      "Self-hosting: control total de datos para compliance y privacidad",
+      "1,000+ integraciones con 70+ nodos de IA via LangChain",
+      "Codigo JavaScript/Python nativo para transformaciones avanzadas",
+      "Precio por workflow (no por tarea) - mas economico en alto volumen [VERIFICAR]",
+    ],
+  },
 
   // INVESTIGACION (includes former "datos" tools)
   {
@@ -199,7 +232,7 @@ export const tools: Tool[] = [
     descripcion:
       "Motor de busqueda con IA que genera 'Sparkpages' - paginas informativas personalizadas que sintetizan informacion de multiples fuentes en un formato visual estructurado. Diseñado para eliminar SEO spam y contenido publicitario.",
     descripcionCorta: "Busqueda que genera paginas informativas",
-    categoria: "investigacion",
+    categoria: "agentes",
     nivel: "principiante",
     tier: "tier1",
     departamentos: ["marketing", "ventas", "operaciones", "rrhh", "tech"],
@@ -283,36 +316,6 @@ export const tools: Tool[] = [
     ],
   },
   {
-    id: "chatgpt",
-    nombre: "ChatGPT Code Interpreter",
-    url: "https://chat.openai.com",
-    descripcion:
-      "Funcionalidad de ChatGPT que permite subir archivos (CSV, Excel, PDFs, imagenes) y ejecutar codigo Python en un entorno sandbox. Ideal para analisis de datos, visualizaciones y procesamiento de archivos sin saber programar.",
-    descripcionCorta: "Analisis de datos con Python automatizado",
-    categoria: "investigacion",
-    nivel: "principiante",
-    tier: "tier3",
-    departamentos: ["finanzas", "operaciones", "marketing", "ventas", "rrhh", "todos"],
-    precios: [
-      { plan: "Plus", precio: "$20/mes", caracteristicas: "Completo, archivos 512MB" },
-      { plan: "Team", precio: "$25/mes", caracteristicas: "Workspace compartido" },
-      { plan: "Enterprise", precio: "Personalizado", caracteristicas: "Sin limites, SSO" },
-    ],
-    casosDeUso: [
-      "Finanzas: Analizar estados financieros, crear proyecciones con graficos",
-      "Admin: Procesar facturas, generar reportes de gastos automaticos",
-      "RRHH: Analizar encuestas de clima, visualizar datos de rotacion",
-      "Marketing: Analizar metricas de campañas, segmentar bases de datos",
-      "Ventas: Analizar pipeline, crear forecasts y visualizar tendencias",
-    ],
-    porQueEsBueno: [
-      "Democratiza analisis de datos: sin saber programar",
-      "Genera codigo Python que puedes revisar y reutilizar",
-      "Procesa multiples formatos (CSV, Excel, PDF, imagenes)",
-      "Explicaciones paso a paso que ayudan a aprender",
-    ],
-  },
-  {
     id: "rows",
     nombre: "Rows.com",
     url: "https://rows.com",
@@ -350,7 +353,7 @@ export const tools: Tool[] = [
     descripcion:
       "Agente de IA autonomo capaz de ejecutar tareas complejas de forma independiente: navegar por internet, escribir codigo, crear documentos y completar workflows multi-paso sin supervision constante. Posicionado como 'el primer agente de IA verdaderamente general'.",
     descripcionCorta: "Agente autonomo que ejecuta tareas complejas",
-    categoria: "investigacion",
+    categoria: "agentes",
     nivel: "intermedio",
     tier: "tier2",
     departamentos: ["tech", "operaciones", "marketing", "ventas", "finanzas"],
@@ -406,37 +409,6 @@ export const tools: Tool[] = [
     ],
   },
   {
-    id: "loom",
-    nombre: "Loom",
-    url: "https://loom.com",
-    descripcion:
-      "Herramienta de grabacion de video asincrono que permite capturar pantalla, camara o ambos para comunicar ideas sin reuniones. Los videos se comparten instantaneamente con un link y los espectadores pueden reaccionar y comentar.",
-    descripcionCorta: "Videos asincronos para comunicacion",
-    categoria: "creatividad",
-    nivel: "principiante",
-    tier: "tier3",
-    departamentos: ["todos", "admin", "finanzas", "rrhh", "tech", "ventas", "legal"],
-    precios: [
-      { plan: "Starter", precio: "$0", caracteristicas: "25 videos, 5 min, marca" },
-      { plan: "Business", precio: "$15/mes", caracteristicas: "Ilimitados, transcripciones" },
-      { plan: "Enterprise", precio: "Personalizado", caracteristicas: "SSO, admin avanzado" },
-    ],
-    casosDeUso: [
-      "Finanzas: Explicar informes financieros con walkthrough visual",
-      "Admin: Documentar procedimientos con videos reutilizables",
-      "RRHH: Videos de bienvenida, explicar beneficios, feedback personal",
-      "Tech: Reportar bugs con contexto, code reviews asincronos",
-      "Ventas: Demos personalizadas, seguimiento con videos destacados",
-      "Legal: Explicar terminos contractuales de forma documentada",
-    ],
-    porQueEsBueno: [
-      "Elimina reuniones innecesarias: 3 min video = 30 min reunion",
-      "Comunicacion asincrona respeta zonas horarias",
-      "Transcripciones automaticas con IA hacen contenido buscable",
-      "Integracion nativa con Slack, Notion, Gmail",
-    ],
-  },
-  {
     id: "canva",
     nombre: "Canva",
     url: "https://canva.com",
@@ -466,6 +438,68 @@ export const tools: Tool[] = [
       "Biblioteca masiva de templates, fotos, iconos para cualquier necesidad",
       "Herramientas de IA integradas (Magic Write, Eraser, Text to Image)",
       "Brand Kit mantiene consistencia de marca en todos los materiales",
+    ],
+  },
+  {
+    id: "heygen",
+    nombre: "HeyGen",
+    url: "https://heygen.com",
+    descripcion:
+      "Plataforma de generacion de video con IA que permite crear videos profesionales utilizando avatares digitales realistas y voces sintetizadas en mas de 175 idiomas. Ofrece traduccion automatica de videos con sincronizacion labial, clonacion de voz, y avatares personalizados.",
+    descripcionCorta: "Videos con avatares IA y traduccion automatica",
+    categoria: "creatividad",
+    nivel: "intermedio",
+    tier: "tier2",
+    departamentos: ["marketing", "ventas", "rrhh", "operaciones", "todos"],
+    precios: [
+      { plan: "Free", precio: "$0", caracteristicas: "3 videos/mes, 3 min, 720p con marca" },
+      { plan: "Creator", precio: "$29/mes", caracteristicas: "Ilimitados 30 min, 1080p, clonacion voz" },
+      { plan: "Team", precio: "$39/usuario", caracteristicas: "4K, colaboracion, min 2 usuarios" },
+      { plan: "Enterprise", precio: "Personalizado", caracteristicas: "SSO, soporte dedicado [VERIFICAR]" },
+    ],
+    casosDeUso: [
+      "Marketing: Videos promocionales y anuncios UGC a escala sin produccion tradicional",
+      "Ventas: Videos personalizados de prospeccion con nombre del cliente dinamico",
+      "RRHH: Videos de bienvenida y formacion para onboarding de empleados",
+      "Formacion: Capacitacion en compliance y uso de software actualizable al instante",
+      "Comunicacion: Mensajes de liderazgo traducidos automaticamente a multiples idiomas",
+    ],
+    porQueEsBueno: [
+      "Traduccion con lip-sync en 175+ idiomas para empresas globales",
+      "Crear videos profesionales solo con texto, sin camaras ni edicion",
+      "Escalabilidad: generar cientos de videos personalizados simultaneamente",
+      "Valoracion alta (4.7/5 estrellas) por calidad de avatares y soporte",
+    ],
+  },
+  {
+    id: "elevenlabs",
+    nombre: "ElevenLabs",
+    url: "https://elevenlabs.io",
+    descripcion:
+      "Plataforma de IA especializada en generacion de voz, clonacion vocal y doblaje automatico. Ofrece texto a voz ultrarrealista en mas de 70 idiomas con control emocional avanzado, ideal para podcasts, videos, e-learning y atencion al cliente.",
+    descripcionCorta: "Generacion de voz y clonacion con IA",
+    categoria: "creatividad",
+    nivel: "intermedio",
+    tier: "tier2",
+    departamentos: ["marketing", "rrhh", "operaciones", "tech", "todos"],
+    precios: [
+      { plan: "Free", precio: "$0", caracteristicas: "10,000 creditos (~10 min), no comercial" },
+      { plan: "Starter", precio: "$5/mes", caracteristicas: "30,000 creditos, uso comercial" },
+      { plan: "Creator", precio: "$22/mes", caracteristicas: "100,000 creditos, clonacion pro" },
+      { plan: "Pro", precio: "$99/mes", caracteristicas: "500,000 creditos, API avanzada" },
+    ],
+    casosDeUso: [
+      "Marketing: Voces para anuncios y videos promocionales en multiples idiomas",
+      "Contenido: Narracion de podcasts, audiolibros y videos de YouTube",
+      "Formacion: Materiales de e-learning y cursos online con voces naturales",
+      "Soporte: Agentes conversacionales de voz para atencion automatizada",
+      "Accesibilidad: Conversion de texto a audio para personas con discapacidades",
+    ],
+    porQueEsBueno: [
+      "Calidad de voz ultrarrealista con control de emociones avanzado",
+      "70+ idiomas y 30+ opciones de doblaje con sincronizacion labial",
+      "Clonacion de voz precisa para mantener consistencia de marca",
+      "API robusta con SDKs para Python y TypeScript",
     ],
   },
 
@@ -531,37 +565,6 @@ export const tools: Tool[] = [
       "Curva de aprendizaje mas corta que alternativas como Retool",
     ],
   },
-  {
-    id: "claude-artifacts",
-    nombre: "Claude Artifacts",
-    url: "https://claude.ai",
-    descripcion:
-      "Funcionalidad integrada en Claude que permite generar contenido interactivo en un panel lateral: codigo ejecutable, visualizaciones, documentos, diagramas y prototipos simples. Ideal para crear herramientas rapidas sin salir de la conversacion.",
-    descripcionCorta: "Contenido interactivo dentro de Claude",
-    categoria: "nocode",
-    nivel: "intermedio",
-    tier: "tier3",
-    departamentos: ["finanzas", "rrhh", "marketing", "admin", "tech", "todos"],
-    precios: [
-      { plan: "Free", precio: "$0", caracteristicas: "Artifacts basicos, limitado" },
-      { plan: "Pro", precio: "$20/mes", caracteristicas: "Completo, proyectos" },
-      { plan: "Team", precio: "$25/mes", caracteristicas: "Colaboracion, compartidos" },
-      { plan: "Enterprise", precio: "Contactar", caracteristicas: "SSO, seguridad" },
-    ],
-    casosDeUso: [
-      "Finanzas: Calculadoras interactivas de ROI, amortizacion, proyecciones",
-      "Marketing: Generador de copy con preview en tiempo real",
-      "RRHH: Formularios de evaluacion o encuestas interactivas",
-      "Tech: Prototipos de UI, diagramas de arquitectura, snippets",
-      "Admin: Plantillas de documentos con campos dinamicos",
-    ],
-    porQueEsBueno: [
-      "Zero setup - integrado directamente en la conversacion con Claude",
-      "Iteracion instantanea - describes cambios y se actualizan en segundos",
-      "Versatilidad extrema - desde codigo React hasta SVGs, Mermaid, HTML",
-      "Ideal para prototipos rapidos y herramientas de un solo uso",
-    ],
-  },
 
   // DESARROLLO
   {
@@ -596,13 +599,45 @@ export const tools: Tool[] = [
     ],
   },
   {
+    id: "cursor",
+    nombre: "Cursor",
+    url: "https://cursor.com",
+    descripcion:
+      "Editor de codigo basado en VS Code con inteligencia artificial nativa que acelera el desarrollo mediante generacion inteligente de codigo, refactorizacion automatica y comprension contextual completa del codebase. Incluye un agente de IA que ejecuta tareas de programacion de forma autonoma.",
+    descripcionCorta: "Editor de codigo con IA integrada",
+    categoria: "desarrollo",
+    nivel: "intermedio",
+    tier: "tier1",
+    departamentos: ["tech"],
+    precios: [
+      { plan: "Hobby", precio: "$0", caracteristicas: "Requests limitados, autocompletado Tab" },
+      { plan: "Pro", precio: "$20/mes", caracteristicas: "Tab ilimitado, agentes background" },
+      { plan: "Pro+", precio: "$60/mes", caracteristicas: "3x creditos en todos los modelos" },
+      { plan: "Teams", precio: "$40/usuario", caracteristicas: "Chats compartidos, SSO, analytics" },
+    ],
+    casosDeUso: [
+      "Tech: Desarrollo de features nuevas entendiendo contexto del proyecto",
+      "Tech: Refactorizar codigo legacy manteniendo funcionalidad",
+      "Tech: Debugging identificando problemas con contexto del codebase",
+      "Tech: Onboarding - nuevos devs exploran codebase via chat",
+      "Tech: Generacion automatica de tests unitarios",
+      "Product/Tech: Prototipado rapido de MVPs con generacion asistida",
+    ],
+    porQueEsBueno: [
+      "Indexa todo el codebase para sugerencias con contexto arquitectonico completo",
+      "Modo agente autonomo: edita multiples archivos y ejecuta comandos",
+      "Transicion sin friccion desde VS Code (mismo ecosistema de extensiones)",
+      "Flexibilidad de modelos: GPT-4, Claude, modelos propios segun tarea",
+    ],
+  },
+  {
     id: "claude-cowork",
     nombre: "Claude Co-Work",
     url: "https://claude.ai",
     descripcion:
       "Funcionalidad de tareas en segundo plano de Claude Code que permite ejecutar trabajos autonomos mientras el desarrollador continua con otras actividades. Ideal para tareas largas como migraciones, generacion de documentacion o refactorizaciones extensas.",
     descripcionCorta: "Tareas autonomas en segundo plano",
-    categoria: "desarrollo",
+    categoria: "agentes",
     nivel: "intermedio",
     tier: "tier2",
     departamentos: ["tech", "operaciones"],
