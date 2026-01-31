@@ -115,12 +115,14 @@ Each agent should gather:
 ### 4. Adding to tools.ts
 1. Find the appropriate category section (marked with comments like `// CREATIVIDAD`)
 2. Add the new tool object following the interface
-3. Use Spanish for all text fields (no accents needed per project style)
+3. Use Spanish for all text fields with proper accents (á, é, í, ó, ú, ñ)
 4. Run `npm run build` to verify TypeScript compiles
 5. Commit and push to deploy
 
 ### 5. Adding New Categories
-If adding a new category:
+**IMPORTANT: Always confirm new category suggestions with the user before implementing.**
+
+If adding a new category (after user approval):
 1. Update `Category` type in `tools.ts`
 2. Add to `categoryLabels` in `tools.ts`
 3. Add icon in `categoryIcons` in `catalog2.tsx`
@@ -131,7 +133,7 @@ If adding a new category:
 ## Content Guidelines
 
 ### Spanish Text Style
-- No accents needed (e.g., "automatizacion" not "automatización")
+- **Use proper Spanish accents**: á, é, í, ó, ú, ñ (e.g., "automatización", "información", "diseño")
 - Keep descriptions concise and professional
 - Use department prefixes for use cases: "Finanzas:", "RRHH:", "Tech:", etc.
 
