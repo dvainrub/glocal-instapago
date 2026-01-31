@@ -12,76 +12,13 @@ import {
   ChevronUp,
   Sparkles,
   Check,
-  Globe,
-  Zap,
-  Bot,
-  Presentation,
-  Code2,
-  Layers,
 } from "lucide-react";
-import { tools, type Tool, type Category } from "@/data/tools";
+import { tools, type Tool } from "@/data/tools";
 import { ui } from "@/data/translations";
 import { useLang } from "@/lib/useLang";
 import { type Lang } from "@/lib/i18n";
-
-// Category icons (same as linear.tsx)
-const categoryIcons: Record<Category, React.ReactNode> = {
-  automatizacion: <Zap className="h-3.5 w-3.5" />,
-  agentes: <Bot className="h-3.5 w-3.5" />,
-  conocimiento: <Search className="h-3.5 w-3.5" />,
-  creatividad: <Presentation className="h-3.5 w-3.5" />,
-  nocode: <Layers className="h-3.5 w-3.5" />,
-  desarrollo: <Code2 className="h-3.5 w-3.5" />,
-};
-
-// Category colors (same as linear.tsx)
-const categoryColors: Record<Category, string> = {
-  automatizacion: "bg-amber-50 text-amber-700 border-amber-200",
-  agentes: "bg-teal-50 text-teal-700 border-teal-200",
-  conocimiento: "bg-blue-50 text-blue-700 border-blue-200",
-  creatividad: "bg-purple-50 text-purple-700 border-purple-200",
-  nocode: "bg-pink-50 text-pink-700 border-pink-200",
-  desarrollo: "bg-slate-100 text-slate-700 border-slate-200",
-};
-
-// Tier styling
-const tierStyles: Record<string, { bg: string; text: string; border: string }> = {
-  tier1: {
-    bg: "bg-gradient-to-r from-amber-50 to-yellow-50",
-    text: "text-amber-700",
-    border: "border-amber-200",
-  },
-  tier2: {
-    bg: "bg-gradient-to-r from-emerald-50 to-green-50",
-    text: "text-emerald-700",
-    border: "border-emerald-200",
-  },
-  tier3: {
-    bg: "bg-gradient-to-r from-orange-50 to-amber-50",
-    text: "text-orange-700",
-    border: "border-orange-200",
-  },
-};
-
-// Level styling
-const levelStyles: Record<string, string> = {
-  principiante: "bg-emerald-50 text-emerald-700 border-emerald-200",
-  intermedio: "bg-yellow-50 text-yellow-700 border-yellow-200",
-  avanzado: "bg-red-50 text-red-700 border-red-200",
-};
-
-function LanguageToggle({ lang, toggleLang }: { lang: Lang; toggleLang: () => void }) {
-  return (
-    <button
-      onClick={toggleLang}
-      className="group flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-sm font-medium text-gray-600 transition-all hover:border-violet-300 hover:bg-violet-50 hover:text-violet-700"
-      title={lang === "en" ? "Switch to Spanish" : "Cambiar a Ingles"}
-    >
-      <Globe className="h-4 w-4 transition-transform group-hover:rotate-12" />
-      <span className="font-mono text-xs">{lang === "en" ? "ES" : "EN"}</span>
-    </button>
-  );
-}
+import { categoryIcons, categoryColors, tierStyles, levelStyles } from "@/lib/ui-config";
+import { LanguageToggle } from "@/components/LanguageToggle";
 
 interface ToolColumnProps {
   tool: Tool;

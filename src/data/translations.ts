@@ -106,15 +106,15 @@ export const ui = {
   tiers: {
     tier1: {
       en: "Top Pick",
-      es: "Top Pick",
+      es: "Mejor Opcion",
     } as Localized<string>,
     tier2: {
       en: "Great",
-      es: "Great",
+      es: "Excelente",
     } as Localized<string>,
     tier3: {
       en: "Good",
-      es: "Good",
+      es: "Bueno",
     } as Localized<string>,
   },
 

@@ -46,18 +46,6 @@ export interface Tool {
   porQueEsBueno: Localized<string[]>;
 }
 
-export const levelColors: Record<SkillLevel, string> = {
-  principiante: "bg-green-100 text-green-800",
-  intermedio: "bg-yellow-100 text-yellow-800",
-  avanzado: "bg-red-100 text-red-800",
-};
-
-export const tierColors: Record<NonNullable<RecommendationTier>, string> = {
-  tier1: "bg-yellow-100 text-yellow-800 border-yellow-400",
-  tier2: "bg-gray-200 text-gray-700 border-gray-400",
-  tier3: "bg-orange-100 text-orange-800 border-orange-400",
-};
-
 export const tools: Tool[] = [
   // AUTOMATIZACION
   {
@@ -1057,21 +1045,22 @@ export const tools: Tool[] = [
   },
 ];
 
-// Helpers
-export function getToolsByCategory(category: Category): Tool[] {
-  return tools.filter((t) => t.categoria === category);
+// Filter tools by any combination of criteria
+export interface FilterCriteria {
+  category?: Category;
+  department?: Department;
+  level?: SkillLevel;
+  tier?: RecommendationTier;
 }
 
-export function getToolsByDepartment(department: Department): Tool[] {
-  return tools.filter((t) => t.departamentos.includes(department));
-}
-
-export function getToolsByLevel(level: SkillLevel): Tool[] {
-  return tools.filter((t) => t.nivel === level);
-}
-
-export function getToolsByTier(tier: RecommendationTier): Tool[] {
-  return tools.filter((t) => t.tier === tier);
+export function filterTools(criteria: FilterCriteria): Tool[] {
+  return tools.filter((t) => {
+    if (criteria.category && t.categoria !== criteria.category) return false;
+    if (criteria.department && !t.departamentos.includes(criteria.department)) return false;
+    if (criteria.level && t.nivel !== criteria.level) return false;
+    if (criteria.tier !== undefined && t.tier !== criteria.tier) return false;
+    return true;
+  });
 }
 
 export function getCategories(): Category[] {
