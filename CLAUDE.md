@@ -1,6 +1,6 @@
-# Glocal Instapago
+# Rebundle Tools
 
-AI Tools Catalog for Instapago/Glocal Solution - showcasing recommended AI tools organized by category and tier.
+AI Tools Catalog for Rebundle - showcasing recommended AI tools organized by category and tier.
 
 ## Stack
 - Next.js 16 + React 19
@@ -32,8 +32,8 @@ When making changes, use these Claude Code skills:
 - `/web-design-guidelines` - Accessibility and UI best practices
 
 ## Deployment
-- **Live:** https://glocal-instapago.vercel.app
-- **GitHub:** https://github.com/dvainrub/glocal-instapago
+- **Live:** https://rebundle-tools.vercel.app
+- **GitHub:** https://github.com/dvainrub/rebundle-tools
 - Auto-deploys from `main` branch to Vercel
 - **Always commit and push changes to trigger deployment**
 

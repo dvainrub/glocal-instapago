@@ -1,4 +1,4 @@
-// Datos centralizados de herramientas IA para Instapago/Glocal Solution
+// Datos centralizados de herramientas IA para Rebundle
 
 export type SkillLevel = "principiante" | "intermedio" | "avanzado";
 

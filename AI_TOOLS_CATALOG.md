@@ -1,4 +1,4 @@
-# Catalogo de Herramientas IA para Instapago/Glocal Solution
+# Catálogo de Herramientas IA para Rebundle
 
 > Guia completa de herramientas de IA para demos y formacion corporativa
 
@@ -573,4 +573,4 @@ Proporciona la version mejorada."
 
 ---
 
-*Catalogo generado para Instapago/Glocal Solution - Enero 2026*
+*Catálogo generado para Rebundle - Enero 2026*
